@@ -80,3 +80,79 @@ def create_prediction_model(df):
     return model, X_test, y_test, y_pred, mse, r2
 
 
+def plot_results(df, model, future_years=50):
+    try:
+        plt.figure(figsize=(15, 8))
+
+        #plot historical data
+        plt.scatter(df['Year'], df['J-D'],
+                    color='2ecc71',
+                    alpha=0.5,
+                    label='Historical Data')
+        #plot trend line for historical data
+        years = df['Year'].values.reshape(-1,1)
+        plt.plot(df['Year'],
+                model.predict(years),
+                color='#2ecc71',
+                linewidth=2,
+                label='Historical Trend')
+        
+        #generate and plot future predictions
+        last_year = int(df['Year'].max())
+        future_x = np.array(range(last_year + 1, last_year + future_years + 1))
+        future_predictions = model.predict(future_x.reshape(-1, 1))
+       
+        plt.plot(future_x, future_predictions,
+                color='#e74c3c',
+                linestyle='--',
+                linewidth=2,
+                label='Future Predictions')
+       
+        # Calculate and plot confidence interval
+        mse = mean_squared_error(df['J-D'],
+                               model.predict(years))
+        std_dev = np.sqrt(mse)
+        plt.fill_between(future_x,
+                        future_predictions - 2*std_dev,
+                        future_predictions + 2*std_dev,
+                        color='#e74c3c',
+                        alpha=0.2,
+                        label='95% Confidence Interval')
+       
+        # Customize plot
+        plt.title('Global Temperature Anomalies: Historical Data and Future Predictions',
+                 fontsize=14, pad=20)
+        plt.xlabel('Year')
+        plt.ylabel('Temperature Anomaly (°C)')
+        plt.legend()
+       
+        # Add trend information
+        annual_trend = model.coef_[0]
+        r2 = r2_score(df['J-D'], model.predict(years))
+       
+        info_text = f'Annual Trend: {annual_trend:.4f}°C/year\n'
+        info_text += f'50-year projection: {(annual_trend * 50):.2f}°C\n'
+        info_text += f'R² Score: {r2:.3f}'
+       
+        plt.text(0.02, 0.98, info_text,
+                transform=plt.gca().transAxes,
+                bbox=dict(facecolor='white', alpha=0.8),
+                verticalalignment='top',
+                fontsize=10)
+       
+        plt.tight_layout()
+        plt.savefig('temperature_predictions.png', dpi=300, bbox_inches='tight')
+        print("Plot saved as 'temperature_predictions.png'")
+       
+        return annual_trend, future_predictions[-1] - future_predictions[0]
+   
+    except Exception as e:
+        print(f"Error in plotting: {str(e)}")
+        raise
+
+
+
+
+
+
+  
