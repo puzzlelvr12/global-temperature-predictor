@@ -86,7 +86,7 @@ def plot_results(df, model, future_years=50):
 
         #plot historical data
         plt.scatter(df['Year'], df['J-D'],
-                    color='2ecc71',
+                    color='#2ecc71',
                     alpha=0.5,
                     label='Historical Data')
         #plot trend line for historical data
