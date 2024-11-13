@@ -150,6 +150,36 @@ def plot_results(df, model, future_years=50):
         print(f"Error in plotting: {str(e)}")
         raise
 
+def main():
+    try:
+        # Load and process data
+        print("Loading data...")
+        df = load_and_clean_data('global_temperature.csv')
+       
+        # Create and evaluate model
+        print("\nTraining model...")
+        model, X_test, y_test, y_pred, mse, r2 = create_prediction_model(df)
+       
+        # Plot results and get predictions
+        print("\nGenerating predictions and creating plot...")
+        annual_trend, total_change = plot_results(df, model)
+       
+        # Print results
+        print("\nModel Results:")
+        print(f"Mean Squared Error: {mse:.6f}")
+        print(f"R² Score: {r2:.3f}")
+        print(f"\nTemperature Trends:")
+        print(f"Annual temperature change: {annual_trend:.4f}°C/year")
+        print(f"Projected 50-year change: {total_change:.2f}°C")
+       
+    except Exception as e:
+        print(f"\nAn error occurred: {str(e)}")
+        print("Please check the error message above and ensure all requirements are met.")
+
+
+if __name__ == "__main__":
+    main()
+
 
 
 
