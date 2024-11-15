@@ -124,7 +124,7 @@ def plot_results(df, model, future_years=50):
                  fontsize=14, pad=20)
         plt.xlabel('Year')
         plt.ylabel('Temperature Anomaly (°C)')
-        plt.legend()
+        plt.legend(lock = "lower right")
        
         # Add trend information
         annual_trend = model.coef_[0]
