@@ -30,8 +30,11 @@ To use the model, you can clone the repository and run the `tempp_predictor.py` 
 
 ```bash
 download "Global-mean monthly, seasonal, and annual means, 2002-present" from NASA.
+
 git clone https://github.com/puzzlelvr12/global-temperature-predictor.git
+
 cd global-temperature-predictor
+
 python -m venv tempp_predictor_env
 
 tempp_predictor_env\Scripts\activate
