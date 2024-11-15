@@ -31,4 +31,12 @@ To use the model, you can clone the repository and run the `tempp_predictor.py` 
 ```bash
 git clone https://github.com/puzzlelvr12/global-temperature-predictor.git
 cd global-temperature-predictor
+python -m venv tempp_predictor_env
+
+tempp_predictor_env\Scripts\activate
+
+pip install numpy pandas matplotlib scikit-learn
+
 python tempp_predictor.py
+
+
