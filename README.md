@@ -29,6 +29,7 @@ The model is built using the scikit-learn library's `LinearRegression` class. Th
 To use the model, you can clone the repository and run the `tempp_predictor.py` script. This will load the data, train the model, and generate the temperature predictions and visualization.
 
 ```bash
+download "Global-mean monthly, seasonal, and annual means, 2002-present" from NASA.
 git clone https://github.com/puzzlelvr12/global-temperature-predictor.git
 cd global-temperature-predictor
 python -m venv tempp_predictor_env
